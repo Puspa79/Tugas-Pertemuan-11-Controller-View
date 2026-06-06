@@ -76,7 +76,7 @@
 
     <div class="mb-5 bg-white p-3 rounded-4 shadow-sm d-flex gap-3 align-items-center">
         <span class="fw-bold text-secondary small text-uppercase ms-2 me-2">Quick Links:</span>
-        <a href="/perpustakaan" class="btn btn-outline-primary btn-sm px-3">Kelola Buku</a>
+        <a href="{{ route('buku.index') }}" class="btn btn-outline-primary btn-sm px-3">Kelola Buku</a>
         <a href="/anggota" class="btn btn-outline-info btn-sm px-3">Kelola Anggota</a>
     </div>
 

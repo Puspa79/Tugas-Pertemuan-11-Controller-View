@@ -43,16 +43,36 @@ Membuat komponen Blade terpisah (`<x-buku-card>`) yang bersifat *reusable* untuk
 ### 2. Potongan Kode Komponen (`buku-card.blade.php`)
 Berikut susunan kode pada file komponen kartu buku untuk mengatur tata letak simetris komponen teks dan badge status:
 ![Kode Buku Card](screenshoot/kode_buku-card.png)
+![Kode Buku Card](screenshoot/kode_BukuCard.png)
+
+* **Hasil Card Buku
+![Hasil Buku Card](screenshoot/card_buku.png)
 
 ---
 
-## TUGAS 3 - Mengisi Data Melalui Seeder Database (Minimal 5 Data)
+## TUGAS 3 - Search & Filter Buku Advanced
+
 ### 1. Deskripsi Fitur
-Membuat dan mengonfigurasi file `BukuSeeder.php` serta `AnggotaSeeder.php` untuk memasukkan data uji coba (dummy data) ke dalam database secara otomatis melalui perintah `php artisan db:seed`. Masing-masing tabel dipastikan terisi minimal 5 baris data agar layout daftar terbaru pada dashboard ter-render dengan seimbang dan presisi.
+Menambahkan fitur pencarian kata kunci dan penyaringan (*filter*) data buku tingkat lanjut secara dinamis. Fitur ini memungkinkan pengguna mencari buku berdasarkan kombinasi judul, pengarang, penerbit, kategori, tahun terbit, serta status ketersediaan stok di perpustakaan melalui satu form terpadu.
 
-### 2. Bukti Data Berhasil Tersimpan di phpMyAdmin
-* **Tabel Buku (`buku`):** Memperlihatkan 5 baris data buku hasil eksekusi database seeder dengan atribut kolom lengkap (`id`, `judul`, `stok`, `harga`, `tahun_terbit`).
-![Tabel Buku](screenshoot/table_buku.png)
+**Spesifikasi Form & Backend:**
+* **Form Search:** Input Keyword (Judul/Pengarang/Penerbit), Dropdown Kategori, Dropdown Tahun Terbit, dan Dropdown Ketersediaan (Semua/Tersedia/Habis).
+* **Route:** `/buku/search` dengan metode HTTP `GET`.
+* **Controller Method:** Mengimplementasikan `public function search(Request $request)` di dalam `BukuController` dengan memanfaatkan Eloquent Query Builder (`Buku::query()`) dan mengembalikannya ke halaman `buku.index`.
 
-* **Tabel Anggota (`anggota`):** Memperlihatkan 5 baris data anggota hasil eksekusi database seeder dengan atribut kolom lengkap (`id`, `nama`, `umur`, `jenis_kelamin`, `status`).
+---
+
+### 2. Bukti Data Terseeder di phpMyAdmin
+Sebelum fitur pencarian diuji, database telah diisi dengan minimal 5 data uji coba memanfaatkan Database Seeder (`BukuSeeder.php` dan `AnggotaSeeder.php`):
+
+* **Tabel Buku (`bukus`):** Memperlihatkan data buku hasil eksekusi seeder dengan struktur kolom lengkap (`id`, `isbn`, `judul`, `pengarang`, `penerbit`, `tahun_terbit`, `jumlah_halaman`, `kategori`, `stok`, `harga`, `sinopsis`).
+![Tabel Buku](screenshoot/tabel_buku.png)
+
+* **Tabel Anggota (`anggotas`):** Memperlihatkan data anggota hasil eksekusi seeder dengan struktur kolom lengkap (`id`, `kode_anggota`, `nama`, `email`, `telepon`, `alamat`, `tanggal_lahir`, `jenis_kelamin`, `pekerjaan`, `tanggal_daftar`, `status`).
 ![Tabel Anggota](screenshoot/tabel_anggota.png)
+
+---
+
+### 3. Bukti Implementasi Fitur & Pengujian (Halaman Antarmuka)
+* **Halaman Form Pencarian & Filter Advanced:** Menampilkan antarmuka komponen pencarian buku beserta hasil pencarian yang berhasil ter-render pada view `buku.index` setelah melakukan pencarian data spesifik.
+![Halaman Search dan Filter Buku](screenshoot/hasil_pencarian.png)

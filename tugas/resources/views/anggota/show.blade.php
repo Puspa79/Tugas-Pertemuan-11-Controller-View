@@ -1,52 +1,136 @@
 @extends('layouts.app')
-@section('title', 'Profil Anggota - ' . $anggota['nama'])
-
+ 
+@section('title', $anggota->nama)
+ 
 @section('content')
-<div class="row justify-content-center">
-    <div class="col-md-6col-lg-5">
-        <div class="card p-0 shadow-lg border-0 overflow-hidden mb-5">
-            <div class="bg-primary" style="height: 100px;"></div>
-            
-            <div class="card-body p-4 text-center position-relative">
-                <div class="mb-3 position-relative d-inline-block" style="margin-top: -50px; z-index: 2;">
-                    <div class="bg-white rounded-circle p-2 shadow">
-                        <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center fw-bold shadow-sm" 
-                             style="width: 80px; height: 80px; font-size: 32px; border: 4px solid #fff;">
-                            {{ strtoupper(substr($anggota['nama'], 0, 1)) }}
-                        </div>
-                    </div>
-                </div>
-                
-                <h3 class="fw-bold mb-1 mt-2">{{ $anggota['nama'] }}</h3>
-                <span class="badge bg-secondary mb-4 px-3 py-2 fw-medium">{{ $anggota['kode'] }}</span>
-                
-                <hr class="text-muted opacity-25 mb-4">
-                
-                <div class="text-start px-2">
-                    <div class="mb-3 p-3 bg-light rounded-3 border">
-                        <small class="text-muted d-block text-uppercase fw-semibold tracking-wider" style="font-size: 11px;">Alamat Email</small>
-                        <span class="fw-medium text-dark fs-6">{{ $anggota['email'] }}</span>
-                    </div>
-                    <div class="mb-3 p-3 bg-light rounded-3 border">
-                        <small class="text-muted d-block text-uppercase fw-semibold tracking-wider" style="font-size: 11px;">Nomor Telepon</small>
-                        <span class="fw-medium text-dark fs-6">{{ $anggota['telepon'] }}</span>
-                    </div>
-                    <div class="mb-3 p-3 bg-light rounded-3 border">
-                        <small class="text-muted d-block text-uppercase fw-semibold tracking-wider" style="font-size: 11px;">Kota Domisili</small>
-                        <span class="fw-medium text-dark fs-6">{{ $anggota['alamat'] }}</span>
-                    </div>
-                    <div class="mb-3 p-3 bg-light rounded-3 border d-flex align-items-center justify-content-between">
-                        <small class="text-muted text-uppercase fw-semibold tracking-wider mb-0" style="font-size: 11px;">Status Keanggotaan</small>
-                        <span class="badge rounded-pill px-3 py-2 fw-bold {{ $anggota['status'] == 'Aktif' ? 'bg-success-subtle text-success' : 'bg-danger-subtle text-danger' }}">
-                            ● {{ $anggota['status'] }}
+<div class="row">
+    <div class="col-12 mb-3">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('anggota.index') }}">Anggota</a></li>
+                <li class="breadcrumb-item active">{{ $anggota->nama }}</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+ 
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header bg-success text-white">
+                <h4 class="mb-0">
+                    <i class="bi bi-person"></i>
+                    Detail Anggota
+                </h4>
+            </div>
+            <div class="card-body">
+                <div class="text-center mb-4">
+                    @if ($anggota->jenis_kelamin == 'Laki-laki')
+                        <i class="bi bi-person-circle text-primary" style="font-size: 5rem;"></i>
+                    @else
+                        <i class="bi bi-person-circle text-danger" style="font-size: 5rem;"></i>
+                    @endif
+                    <h3 class="mt-2">{{ $anggota->nama }}</h3>
+                    @if ($anggota->status == 'Aktif')
+                        <span class="badge bg-success">
+                            <i class="bi bi-check-circle"></i> Anggota Aktif
                         </span>
-                    </div>
+                    @else
+                        <span class="badge bg-secondary">
+                            <i class="bi bi-x-circle"></i> Nonaktif
+                        </span>
+                    @endif
                 </div>
                 
-                <div class="d-grid mt-5">
-                    <a href="{{ route('anggota.index') }}" class="btn btn-light border py-2.5 text-muted fw-medium shadow-sm hover-elevate">
-                        ← Kembali ke Daftar Anggota</a>
+                <table class="table table-borderless">
+                    <tr>
+                        <td width="200" class="fw-bold">
+                            <i class="bi bi-upc text-success"></i> Kode Anggota
+                        </td>
+                        <td>: <code>{{ $anggota->kode_anggota }}</code></td>
+                    </tr>
+                    <tr>
+                        <td class="fw-bold">
+                            <i class="bi bi-envelope text-success"></i> Email
+                        </td>
+                        <td>: {{ $anggota->email }}</td>
+                    </tr>
+                    <tr>
+                        <td class="fw-bold">
+                            <i class="bi bi-telephone text-success"></i> Telepon
+                        </td>
+                        <td>: {{ $anggota->telepon }}</td>
+                    </tr>
+                    <tr>
+                        <td class="fw-bold">
+                            <i class="bi bi-geo-alt text-success"></i> Alamat
+                        </td>
+                        <td>: {{ $anggota->alamat }}</td>
+                    </tr>
+                    <tr>
+                        <td class="fw-bold">
+                            <i class="bi bi-calendar text-success"></i> Tanggal Lahir
+                        </td>
+                        <td>: {{ $anggota->tanggal_lahir->format('d F Y') }} ({{ $anggota->umur }} tahun)</td>
+                    </tr>
+                    <tr>
+                        <td class="fw-bold">
+                            <i class="bi bi-gender-ambiguous text-success"></i> Jenis Kelamin
+                        </td>
+                        <td>: {{ $anggota->jenis_kelamin }}</td>
+                    </tr>
+                    <tr>
+                        <td class="fw-bold">
+                            <i class="bi bi-briefcase text-success"></i> Pekerjaan
+                        </td>
+                        <td>: {{ $anggota->pekerjaan ?? '-' }}</td>
+                    </tr>
+                    <tr>
+                        <td class="fw-bold">
+                            <i class="bi bi-calendar-check text-success"></i> Tanggal Daftar
+                        </td>
+                        <td>: {{ $anggota->tanggal_daftar->format('d F Y') }} ({{ $anggota->lama_anggota }} hari)</td>
+                    </tr>
+                </table>
+                
+                <hr>
+                <div class="row text-muted small">
+                    <div class="col-md-6">
+                        <i class="bi bi-clock"></i> 
+                        Ditambahkan: {{ $anggota->created_at->format('d M Y H:i') }}
+                    </div>
+                    <div class="col-md-6 text-end">
+                        <i class="bi bi-clock-history"></i> 
+                        Terakhir Update: {{ $anggota->updated_at->format('d M Y H:i') }}
+                    </div>
                 </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="card mb-3">
+            <div class="card-header bg-secondary text-white">
+                <h6 class="mb-0">
+                    <i class="bi bi-gear"></i> Aksi
+                </h6>
+            </div>
+            <div class="card-body d-grid gap-2">
+                <a href="{{ route('anggota.edit', $anggota->id) }}" class="btn btn-warning">
+                    <i class="bi bi-pencil"></i> Edit Anggota
+                </a>
+                <a href="{{ route('anggota.index') }}" class="btn btn-outline-success">
+                    <i class="bi bi-arrow-left"></i> Kembali
+                </a>
+                <hr>
+                <form action="{{ route('anggota.destroy', $anggota->id) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus?')">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-danger w-100">
+                        <i class="bi bi-trash"></i> Hapus Anggota
+                    </button>
+                </form>
             </div>
         </div>
     </div>
