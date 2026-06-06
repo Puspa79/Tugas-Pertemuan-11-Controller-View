@@ -45,7 +45,7 @@ Berikut susunan kode pada file komponen kartu buku untuk mengatur tata letak sim
 ![Kode Buku Card](screenshoot/kode_buku-card.png)
 ![Kode Buku Card](screenshoot/kode_BukuCard.png)
 
-* **Hasil Card Buku
+* **Hasil Card Buku**
 ![Hasil Buku Card](screenshoot/card_buku.png)
 
 ---
@@ -66,7 +66,7 @@ Menambahkan fitur pencarian kata kunci dan penyaringan (*filter*) data buku ting
 Sebelum fitur pencarian diuji, database telah diisi dengan minimal 5 data uji coba memanfaatkan Database Seeder (`BukuSeeder.php` dan `AnggotaSeeder.php`):
 
 * **Tabel Buku (`bukus`):** Memperlihatkan data buku hasil eksekusi seeder dengan struktur kolom lengkap (`id`, `isbn`, `judul`, `pengarang`, `penerbit`, `tahun_terbit`, `jumlah_halaman`, `kategori`, `stok`, `harga`, `sinopsis`).
-![Tabel Buku](screenshoot/tabel_buku.png)
+![Tabel Buku](screenshoot/table_buku.png)
 
 * **Tabel Anggota (`anggotas`):** Memperlihatkan data anggota hasil eksekusi seeder dengan struktur kolom lengkap (`id`, `kode_anggota`, `nama`, `email`, `telepon`, `alamat`, `tanggal_lahir`, `jenis_kelamin`, `pekerjaan`, `tanggal_daftar`, `status`).
 ![Tabel Anggota](screenshoot/tabel_anggota.png)
